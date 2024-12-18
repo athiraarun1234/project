@@ -64,7 +64,7 @@ class _MyhomepageState extends State<Myhomepage> {
                           ),),
                           SizedBox(height: 10,),
                           ElevatedButton(style: ElevatedButton.styleFrom(backgroundColor: Colors.brown),
-                            onPressed: (){}, child:Text('Join',style: TextStyle(color: Colors.white),))
+                            onPressed: (){}, child:Text('Call us',style: TextStyle(color: Colors.white),))
                             ],
                           ),
                         ),

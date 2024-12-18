@@ -4,7 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:petadoptionapp/adoptionlist/myadoption.dart';
 import 'package:petadoptionapp/categorypage/allcategory.dart';
 import 'package:petadoptionapp/homepage/homepage.dart';
+import 'package:petadoptionapp/homepage/menubar/menumyself.dart';
 import 'package:petadoptionapp/profile/firstprofile/firstprofilepage.dart';
+
 import 'package:petadoptionapp/wishlist/wishlist.dart';
 class Mynavigationbar extends StatefulWidget {  
   Mynavigationbar ({Key ?key}) : super(key: key);  
@@ -33,7 +35,7 @@ class _MynavigationbarState extends State<Mynavigationbar > {
   Widget build(BuildContext context) {  
     return Scaffold(  
       appBar: AppBar(  
-       leading: Icon(Icons.menu),  
+       
        title:  Column(
          children: [
            Text('Hi Athira',style: TextStyle(fontSize: 14),),
@@ -51,6 +53,36 @@ class _MynavigationbarState extends State<Mynavigationbar > {
       body: Center(  
         child: _widgetOptions.elementAt(_selectedIndex),  
       ),  
+      drawer: Drawer(
+        backgroundColor: const Color.fromARGB(255, 246, 230, 223),
+        child: Column(
+          children: [
+            UserAccountsDrawerHeader(accountName: Text('Athira A'), accountEmail: Text('athira@gmail.com'),
+            currentAccountPicture: CircleAvatar(radius: 50,
+            backgroundImage: AssetImage('assets/lady.png'),
+            ),
+            decoration: BoxDecoration(color:Colors.blueGrey),
+            ),
+            Column(
+              children: [
+                ListTile(leading: Icon(Icons.home),
+                title: Text('Home'),
+                ),
+                 ListTile(leading: Icon(Icons.category_outlined),
+                title: Text('Category'),
+                ),
+                 ListTile(leading: Icon(Icons.shop),
+                title: Text('My orders'),
+                ),
+                 ListTile(leading: Icon(Icons.favorite),
+                title: Text('Wishlist'),
+                ),
+                
+              ],
+            ),
+          ],
+        ),
+      ),
       bottomNavigationBar: BottomNavigationBar(  
         backgroundColor:  Colors.white,
         items: const <BottomNavigationBarItem>[  

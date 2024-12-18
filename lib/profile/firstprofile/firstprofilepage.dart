@@ -1,5 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:petadoptionapp/profile/firstprofile/myprofile.dart';
+import 'package:petadoptionapp/loginpage/loginpage.dart';
+import 'package:petadoptionapp/profile/firstprofile/editprofile.dart';
+import 'package:petadoptionapp/profile/firstprofile/help/help.dart';
+import 'package:petadoptionapp/profile/firstprofile/myorders/myorders.dart';
+
+import 'package:petadoptionapp/profile/firstprofile/myself/myself.dart';
+import 'package:petadoptionapp/profile/firstprofile/privacy/privacy.dart';
+import 'package:petadoptionapp/profile/firstprofile/privacy/securitypolicy/securitypolicy.dart';
 import 'package:petadoptionapp/profile/firstprofile/profilesetting.dart';
 
 class Myprofilepage extends StatefulWidget {
@@ -27,18 +34,22 @@ class _MyprofilepageState extends State<Myprofilepage> {
               image: DecorationImage(image: AssetImage('assets/front (2).png'),fit: BoxFit.cover)),
              ),
              Positioned(
-              
               top: 100,
-              child: CircleAvatar(
-              radius: 50,
-              backgroundImage: AssetImage('assets/lady.png'),
-             ))
+              child: GestureDetector(
+                onTap: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => Myself(),));
+                },
+                child: CircleAvatar(
+                radius: 50,
+                backgroundImage: AssetImage('assets/lady.png'),
+                             ),
+              ))
             ],
            ),
             SizedBox(
-              height: 55,
+              height: 35,
             ),
-            Samplecontainer(Icons.person,'Profile Details',Icons.arrow_forward_ios_rounded,(){
+            Samplecontainer(Icons.person,'Edit profile',Icons.arrow_forward_ios_rounded,(){
               Navigator.push(context, MaterialPageRoute(builder: (context) => Myprofile(),));
             }),
             SizedBox(
@@ -51,17 +62,43 @@ class _MyprofilepageState extends State<Myprofilepage> {
               height: 25,
             ),
             Samplecontainer(Icons.shop,'My Orders',Icons.arrow_forward_ios_rounded,(){
-              Navigator.push(context, MaterialPageRoute(builder: (context) => Myprofilesetting(),),);
+              Navigator.push(context, MaterialPageRoute(builder: (context) => Myorders(),),);
             }),
             SizedBox(
               height: 25,
             ),
             Samplecontainer(Icons.help,'Help',Icons.arrow_forward_ios_rounded,(){
-              Navigator.push(context, MaterialPageRoute(builder: (context) => Myprofilesetting(),),);
+              Navigator.push(context, MaterialPageRoute(builder: (context) => Myhelp(),),);
             }),
+             SizedBox(
+              height: 25,
+            ),
+            Samplecontainer(Icons.privacy_tip,'Privacy policy',Icons.arrow_forward_ios_rounded,(){
+              Navigator.push(context, MaterialPageRoute(builder: (context) => Security(),),);
+            }),
+            SizedBox(height: 35,),
+           ElevatedButton(onPressed: () {
+             showDialog(context: context, builder:(context) {
+               return AlertDialog(
+                content: Text('Are you want to exit the app?'),
+                actions: [
+                  ElevatedButton(onPressed: () {
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => Myloginpage(),));
+                   }, 
+                  style: ElevatedButton.styleFrom(backgroundColor: const Color.fromARGB(255, 233, 217, 211).withOpacity(0.5)),
+                  child: Text('Yes')),
+                  ElevatedButton(onPressed: () {
+                    Navigator.pop(context);
+                   }, 
+                  style: ElevatedButton.styleFrom(backgroundColor: const Color.fromARGB(255, 231, 207, 199).withOpacity(0.5)),
+                  child: Text('No'))
+                ],
+               );
+             },);
+           }, style: ElevatedButton.styleFrom(backgroundColor: Colors.amber),
+      child     : Text('Logout',style: TextStyle(color: Colors.brown),))
           ],
-        ),
-      ),
+      ),),
     );
   }
   Widget Samplecontainer(IconData icon,String name,IconData icons,Function() onTap)

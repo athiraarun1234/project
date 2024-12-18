@@ -44,7 +44,7 @@ class _MydetailpageState extends State<Mydetailpage> {
                   decoration: BoxDecoration(borderRadius: BorderRadius.circular(30),
                   color: const Color.fromARGB(255, 243, 218, 226),
                   ),
-                  child: Center(child: Text('Lapsa',style: TextStyle(fontSize: 15,fontWeight: FontWeight.w100,color: Colors.brown),)),
+                  child: Center(child: Text('Lapsa',style: TextStyle(fontSize: 15,fontWeight: FontWeight.normal,color: Colors.brown),)),
                 ), 
                 SizedBox(width: 10,),
                 Container(
@@ -53,14 +53,14 @@ class _MydetailpageState extends State<Mydetailpage> {
                   decoration: BoxDecoration(borderRadius: BorderRadius.circular(30),
                   color: const Color.fromARGB(255, 207, 224, 174).withOpacity(0.5),
                   ),
-                  child: Center(child: Text('1 Year',style: TextStyle(fontSize: 15,fontWeight: FontWeight.w100,color: Colors.brown),)),
+                  child: Center(child: Text('1 Year',style: TextStyle(fontSize: 15,fontWeight: FontWeight.normal,color: Colors.brown),)),
                 ),SizedBox(width: 10,),
                 Container(
                   height: 45,
                   width: 120,
                   decoration: BoxDecoration(borderRadius: BorderRadius.circular(30),
                   color: const Color.fromARGB(255, 198, 237, 252).withOpacity(0.5)),
-                 child: Center(child: Text('Female',style: TextStyle(fontSize: 15,fontWeight: FontWeight.w100,color: Colors.brown),)),
+                 child: Center(child: Text('Female',style: TextStyle(fontSize: 15,fontWeight: FontWeight.normal,color: Colors.brown),)),
                 ),
               ],
             ),
@@ -73,7 +73,7 @@ class _MydetailpageState extends State<Mydetailpage> {
            Container(
             width: double.infinity,
             height: 75,
-            decoration: BoxDecoration(color:Colors.brown.withOpacity(0.4),borderRadius: BorderRadius.circular(35)),
+            decoration: BoxDecoration(color:const Color.fromARGB(255, 243, 79, 20).withOpacity(0.4),borderRadius: BorderRadius.circular(35)),
             child: Center(child: Text('Adopt Now',style: TextStyle(color: Colors.white,fontSize: 20,fontWeight: FontWeight.bold),)),
            )
           ],

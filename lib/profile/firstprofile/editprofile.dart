@@ -43,7 +43,7 @@ class _MyprofileState extends State<Myprofile> {
               Profile(Icons.email,'Email'),SizedBox(height: 20,),
               Profile(Icons.phone,'Phone'),SizedBox(height: 20,),
               ElevatedButton(style: ElevatedButton.styleFrom(backgroundColor: Colors.brown),
-                                onPressed: (){}, child:Text('Edit',style: TextStyle(color: Colors.white),))
+                                onPressed: (){}, child:Text('Save',style: TextStyle(color: Colors.white),))
             ],
           ),
         ),

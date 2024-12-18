@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:petadoptionapp/Registerpage/registerpage.dart';
 import 'package:petadoptionapp/homepage/bottomnavigation/bottomnavigation.dart';
 import 'package:petadoptionapp/homepage/homepage.dart';
+import 'package:petadoptionapp/loginpage/forgetpassword/forgetpassword.dart';
 
 class Myloginpage extends StatefulWidget {
   const Myloginpage({super.key});
@@ -58,8 +59,13 @@ class _MyloginpageState extends State<Myloginpage> {
                 ), SizedBox(height: 10,),
                 Row(mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    Text('Forgot Password?',style: TextStyle(color: const Color.fromARGB(255, 229, 100, 53),fontSize: 15,
-                          fontWeight: FontWeight.bold),),
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => Mypassword(),));
+                      },
+                      child: Text('Forgot Password?',style: TextStyle(color: const Color.fromARGB(255, 229, 100, 53),fontSize: 15,
+                            fontWeight: FontWeight.bold),),
+                    ),
                   ],
                 ),
                 
