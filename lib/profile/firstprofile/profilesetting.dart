@@ -25,7 +25,7 @@ class _MyprofilesettingState extends State<Myprofilesetting> {
               }, child: Text('On')),
             ],
           ),
-          //Image.asset('assets/privacys.png')
+          Image.asset('assets/privacys.png')
         ],
       ),
        
