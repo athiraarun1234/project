@@ -217,7 +217,8 @@ class _MyregisterpageState extends State<Myregisterpage> {
        ),
     );
   }
-  Widget Sampletextform(String name,IconData icon,TextEditingController samplecontroller,String? Function(String?)? validator,Function()onTap)
+  Widget Sampletextform(String name,IconData icon,TextEditingController samplecontroller,
+                        String? Function(String?)? validator,Function()onTap)
   {
     return Padding(
       padding: const EdgeInsets.all(8.0),
