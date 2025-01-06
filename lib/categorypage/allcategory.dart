@@ -1,7 +1,13 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:petadoptionapp/CATEGORYAPI/APICATEGORY/api.dart';
+import 'package:petadoptionapp/CATEGORYAPI/WIDGETCATEGORY/widget.dart';
+import 'package:petadoptionapp/categorypage/categorywidget.dart';
 import 'package:petadoptionapp/categorypage/dogcategory/dogcategory.dart';
+import 'package:provider/provider.dart';
 
 class Mycategorypage extends StatefulWidget {
+    static const routname='categoryscreen';
   const Mycategorypage({super.key});
 
   @override
@@ -9,10 +15,16 @@ class Mycategorypage extends StatefulWidget {
 }
 
 class _MycategorypageState extends State<Mycategorypage> {
-  List<String>image=['assets/pup.png','assets/littlecat.png','assets/fish.png','assets/birds.png','assets/rabbit.png'];
-  List<String>petname=['Dog','Cat','Fish','Bird','Rabbit'];
+  @override
+  void initState(){
+    Provider.of<CategoryProvider>(context,listen: false).getAllCategoriesData(context: context);
+    super .initState();
+  }
   @override
   Widget build(BuildContext context) {
+    final category2=Provider.of<CategoryProvider>(context);
+    final size=MediaQuery.of(context).size;
+
     return Scaffold(
       backgroundColor: Colors.white,
       body: Padding(
@@ -21,39 +33,43 @@ class _MycategorypageState extends State<Mycategorypage> {
           children: [
             Text('Categories',style: TextStyle(color: Colors.brown,fontSize: 25,fontWeight: FontWeight.bold),),
             SizedBox(height: 10,),
-            Expanded(
-              child: GridView.builder(gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,mainAxisSpacing: 15,crossAxisSpacing: 15,childAspectRatio: 0.7),
-                itemCount: 5,
-                 itemBuilder: (context, index) {
-                  return Column(
-                    children: [
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => Mydogcataegory(),));
-                        },
-                        child: Container(
-                          width: 350,
-                          height: 200,
-                          decoration: BoxDecoration(color: const Color.fromARGB(255, 152, 89, 66).withOpacity(0.5),
-                          borderRadius: BorderRadius.only(topLeft: Radius.circular(25),topRight: Radius.circular(25)),
-                          image: DecorationImage(image: AssetImage(image[index]),fit: BoxFit.cover)),
-                        ),
-                      ),
-                      Container(
-                        width:350 ,
-                        height: 35,
-                        decoration: BoxDecoration(
-                          color: const Color.fromARGB(255, 244, 234, 234).withOpacity(0.5),
-                          borderRadius: BorderRadius.only(bottomLeft: Radius.circular(25),bottomRight: Radius.circular(25))
-                        ),
-                      child: Center(child: Text(petname[index],style: TextStyle(color: Colors.brown,fontWeight: FontWeight.normal,fontSize: 20),)),
-                      )
-                    ],
-                  );
-                },
-                ),
-            )
+          Expanded(
+            child: category2.loadingSpinner
+                        ? Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              const Text( 'Loading'),
+                              CircularProgressIndicator(
+                                color: Colors.green
+                              ),
+                              const SizedBox(
+                                width: 10,
+                              ),
+                           
+                            ],
+                          )
+                        : category2.category.isEmpty
+                            ? Text('No Pets...')
+                             : SizedBox(
+                  child:SizedBox(
+                    height:size.height*0.9,
+                     child: GridView.builder(gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2,
+                                   crossAxisSpacing: 15,mainAxisSpacing: 15,childAspectRatio: 0.7
+                                   ), scrollDirection: Axis.vertical,
+                                   itemCount:category2.category.length,
+                                   itemBuilder: (context, index) {
+                      return Mycategorywidget(
+                                         id :category2.category[index].id,
+                                          name :category2.category[index].name,
+                                          photo :category2.category[index].photo,
+                      );
+                                    },
+                                   
+                     )
+                   )      
+            ),
+          ), 
+                           
           ],
         ),
       ),

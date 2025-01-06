@@ -1,5 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:petadoptionapp/APIINTEGRATION/API/api.dart';
+import 'package:petadoptionapp/CATEGORYAPI/APICATEGORY/api.dart';
+import 'package:petadoptionapp/FAVORITEAPI/APIFAVORITE/api.dart';
+import 'package:petadoptionapp/categorypage/allcategory.dart';
+import 'package:petadoptionapp/categorypage/categorywidget.dart';
+import 'package:petadoptionapp/homepage/homepage.dart';
 import 'package:petadoptionapp/splashscreen/splashscreen.dart';
+import 'package:petadoptionapp/wishlist/wishlist.dart';
+import 'package:provider/provider.dart';
 
 void main() {
   runApp(const MyApp());
@@ -11,15 +19,34 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
-      theme: ThemeData(
-       
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
+    return MultiProvider(
+      providers: [
+       ChangeNotifierProvider(create: (context)=>Petprovider(),
+        ),
+       ChangeNotifierProvider(create: (context) => CategoryProvider(),),
+       ChangeNotifierProvider(create: (context)=>PetfavoriteProvider())
+      
+      ],
+      
+      child: MaterialApp(
+      
+        
+        debugShowCheckedModeBanner: false,
+        title: 'Flutter Demo',
+        theme: ThemeData(
+         
+          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+          useMaterial3: true,
+        ),
+      
+        home:Mysplashscreen(),
+        routes:{
+               'adoptionscreen':(context)=>Myhomepage (),
+                'categoryscreen':(context)=> Mycategorypage (),
+                'favoritescreen':(context)=>Mywishlist(),
+      },
+    
       ),
-      home:Mysplashscreen()
     );
   }
 }
