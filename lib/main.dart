@@ -2,8 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:petadoptionapp/APIINTEGRATION/API/api.dart';
 import 'package:petadoptionapp/CATEGORYAPI/APICATEGORY/api.dart';
 import 'package:petadoptionapp/FAVORITEAPI/APIFAVORITE/api.dart';
+import 'package:petadoptionapp/adoptionlist/ADOPTIONLISTAPI/MODELADOPTION/APIADOPTION/api.dart';
+import 'package:petadoptionapp/adoptionlist/myadoption.dart';
 import 'package:petadoptionapp/categorypage/allcategory.dart';
 import 'package:petadoptionapp/categorypage/categorywidget.dart';
+import 'package:petadoptionapp/categorypage/dogcategory/DOGCATEGORYAPI/MODELDOGCATEGORY/APIDOGCATEGORY/api.dart';
+import 'package:petadoptionapp/categorypage/dogcategory/dogcategory.dart';
+import 'package:petadoptionapp/detailpage/detailpage.dart';
 import 'package:petadoptionapp/homepage/homepage.dart';
 import 'package:petadoptionapp/splashscreen/splashscreen.dart';
 import 'package:petadoptionapp/wishlist/wishlist.dart';
@@ -24,8 +29,9 @@ class MyApp extends StatelessWidget {
        ChangeNotifierProvider(create: (context)=>Petprovider(),
         ),
        ChangeNotifierProvider(create: (context) => CategoryProvider(),),
-       ChangeNotifierProvider(create: (context)=>PetfavoriteProvider())
-      
+       ChangeNotifierProvider(create: (context)=>PetfavoriteProvider()),
+      ChangeNotifierProvider(create: (context)=>Categoryeachprovider(),),
+      ChangeNotifierProvider(create: (context)=>AdoptionProvider()),
       ],
       
       child: MaterialApp(
@@ -44,6 +50,13 @@ class MyApp extends StatelessWidget {
                'adoptionscreen':(context)=>Myhomepage (),
                 'categoryscreen':(context)=> Mycategorypage (),
                 'favoritescreen':(context)=>Mywishlist(),
+                'petsscreen2':(context)=>Mydogcataegory(categoryid:'category_id'),
+                 'pets_details_screen': (context) {
+    String id = ModalRoute.of(context)!.settings.arguments.toString();
+    return Mydetailpage( id: id,);
+  },
+  'adoptionlist':(context)=>Myadoption (),
+
       },
     
       ),

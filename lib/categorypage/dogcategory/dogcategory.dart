@@ -1,93 +1,91 @@
 import 'package:flutter/material.dart';
+import 'package:petadoptionapp/APIINTEGRATION/API/api.dart';
+import 'package:petadoptionapp/APIINTEGRATION/WIDGET/widget.dart';
+import 'package:petadoptionapp/categorypage/dogcategory/DOGCATEGORYAPI/MODELDOGCATEGORY/APIDOGCATEGORY/api.dart';
 import 'package:petadoptionapp/detailpage/detailpage.dart';
 import 'package:petadoptionapp/homepage/bottomnavigation/bottomnavigation.dart';
+import 'package:provider/provider.dart';
 
 class Mydogcataegory extends StatefulWidget {
-  const Mydogcataegory({super.key});
+  final String categoryid;
+  static const routename='petsscreen2';
+ 
+  const Mydogcataegory({super.key,required this.categoryid});
 
   @override
   State<Mydogcataegory> createState() => _MydogcataegoryState();
 }
 
 class _MydogcataegoryState extends State<Mydogcataegory> {
-  List<String>dogimage=['assets/pug.jpg','assets/shetzu.png','assets/pomer.png',
-  'assets/malti.png','assets/german.png','assets/boxer.png','assets/bulldog.png'];
-  List<String>dogname=['Pug','Shih Tzu','Pomeranian','Maltese','German Shephard','Boxer','Bulldog'];
-   List<String>placename=['Attingal','Pattam','Tvm','Kollam','Vithura','Pala','Veiloor'];
+ @override
+ void initState(){
+  Provider.of<Categoryeachprovider>(context,listen: false).getAllPetData(context: context, categoryid:widget.categoryid);
+  super.initState();
+ }
   @override
   Widget build(BuildContext context) {
+    final pet3=Provider.of<Categoryeachprovider>(context);
+    final size=MediaQuery.of(context).size; 
     return Scaffold(
       appBar: AppBar(
         leading: GestureDetector(onTap: () {
           Navigator.push(context, MaterialPageRoute(builder:(context) => Mynavigationbar(),));
         },
           child: Icon(Icons.arrow_back,color: Colors.brown,)),
-        title: Text('Dog Categories',style: TextStyle(color: Colors.brown),),
+        title: Text('categories',style: TextStyle(color: Colors.brown),),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: GridView.builder(gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2,
-        mainAxisSpacing: 15,crossAxisSpacing: 15,childAspectRatio: 0.7,
-        ), itemCount: dogimage.length,
-        itemBuilder: (context, index) {
-          return Column(
-            children: [
-              GestureDetector(
-                onTap: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => Mydetailpage(),));
-                },
-                child: Container(
-                  height: 180,
-                  width: 300,
-                  decoration: BoxDecoration(color: Colors.pinkAccent,
-                  borderRadius: BorderRadius.only(topLeft: Radius.circular(25),topRight: Radius.circular(25)),
-                  image: DecorationImage(image: AssetImage(dogimage[index]),fit: BoxFit.cover)),
-                   child:Column(
-                        children: [
-                          Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            IconButton(
-                                                      style: IconButton.styleFrom(
-                             backgroundColor: Colors.white),
-                                                      onPressed: () {},
-                                                      icon: Icon(
-                                                        Icons.favorite_border_outlined,
-                                                        color: Colors.red
-                                                      )
-                            )
-                          ],
-                        ),                
-                        ],
-                      )
-                ),
-              ),
-             Container(
-                height: 70,
-                width: 300,
-                decoration: BoxDecoration(color: Colors.white,
-                borderRadius: BorderRadius.only(bottomLeft: Radius.circular(25),bottomRight: Radius.circular(25))),
-                child: Center(child: Column(crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(dogname[index],style: TextStyle(color: Colors.black,fontSize: 15,fontWeight: FontWeight.bold),),
-                    ),
-                     Row(crossAxisAlignment: CrossAxisAlignment.start,
-                       children: [
-                        Icon(Icons.place),
-                         Text(placename[index],style: TextStyle(color: Colors.black,fontSize: 15,fontWeight: FontWeight.normal),),
-                         SizedBox(width: 50,),
-                       ],
-                     ),
-                  ],
-                )),
-              ),
-               
-            ],
-          );
-        },),
-      ),
-    );
+        body: pet3.loadingSpinner
+                        ? Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              const Text( 'Loading'),
+                              CircularProgressIndicator(
+                                color: Colors.green
+                              ),
+                              const SizedBox(
+                                width: 10,
+                              ),
+                           
+                            ],
+                          )
+                        : pet3.pet2.isEmpty
+                            ? Center(child: Text('No Pets...'))
+                             : SizedBox(
+                            //  height: size.height*0.09,
+                             
+       
+          child: GridView.builder(gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2,
+          mainAxisSpacing: 15,crossAxisSpacing: 15,childAspectRatio: 0.7,
+          ), 
+        itemCount: pet3.pet2.length,
+          itemBuilder: (context, intex) {
+          return Petwidgets(
+                                       petid :pet3.pet2[intex].petid,
+                                        name :pet3.pet2[intex].name,
+                                       species :pet3.pet2[intex].species,
+                                        breed :pet3.pet2[intex].breed,
+                                       age :pet3.pet2[intex].age,
+                                        sex :pet3.pet2[intex].sex,
+                                         color :pet3.pet2[intex].color,
+                                         weight :pet3.pet2[intex].weight,
+                                         dob :pet3.pet2[intex].dob,
+                                          microchipid :pet3.pet2[intex].microchipid,
+                                         aid :pet3.pet2[intex].aid,
+                                         diet :pet3.pet2[intex].diet,
+                                          behaviour :pet3.pet2[intex].behaviour,
+                                           status :pet3.pet2[intex].status,
+                                           notes :pet3.pet2[intex].notes,
+                                          addeddate :pet3.pet2[intex].addeddate,
+                                          photo :pet3.pet2[intex].photo);
+                                    
+                                  },
+                                 
+                   )
+                 )      
+             
+                             );
+   
+      
+    
   }
 }

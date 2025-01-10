@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:petadoptionapp/CATEGORYAPI/APICATEGORY/api.dart';
 import 'package:petadoptionapp/CATEGORYAPI/WIDGETCATEGORY/widget.dart';
 import 'package:petadoptionapp/categorypage/categorywidget.dart';
+import 'package:petadoptionapp/categorypage/dogcategory/DOGCATEGORYAPI/MODELDOGCATEGORY/APIDOGCATEGORY/api.dart';
 import 'package:petadoptionapp/categorypage/dogcategory/dogcategory.dart';
 import 'package:provider/provider.dart';
 
@@ -58,7 +59,7 @@ class _MycategorypageState extends State<Mycategorypage> {
                                    ), scrollDirection: Axis.vertical,
                                    itemCount:category2.category.length,
                                    itemBuilder: (context, index) {
-                      return Mycategorywidget(
+                      return Categorywidget(
                                          id :category2.category[index].id,
                                           name :category2.category[index].name,
                                           photo :category2.category[index].photo,

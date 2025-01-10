@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:petadoptionapp/categorypage/dogcategory/dogcategory.dart';
 
 class Mycategorywidget extends StatefulWidget {
   final String id;
@@ -22,7 +23,7 @@ class _MycategorywidgetState extends State<Mycategorywidget> {
                     children: [
                       GestureDetector(
                         onTap: () {
-                          //Navigator.push(context, MaterialPageRoute(builder: (context) => Mydogcataegory(),));
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => Mydogcataegory(categoryid: widget.id)));
                         },
                         child: Container(
                           width: 350,

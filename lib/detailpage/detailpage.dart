@@ -1,10 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:petadoptionapp/APIINTEGRATION/API/api.dart';
+import 'package:petadoptionapp/APIINTEGRATION/MODEL/model.dart';
+import 'package:petadoptionapp/APIINTEGRATION/MODEL/model.dart';
 import 'package:petadoptionapp/colors.dart';
 import 'package:petadoptionapp/homepage/bottomnavigation/bottomnavigation.dart';
 import 'package:petadoptionapp/homepage/homepage.dart';
+import 'package:provider/provider.dart';
 
 class Mydetailpage extends StatefulWidget {
-  const Mydetailpage({super.key});
+  static const routname='detailscreen';
+  final String id;
+  const Mydetailpage({super.key,
+  required this.id});
 
   @override
   State<Mydetailpage> createState() => _MydetailpageState();
@@ -13,6 +20,7 @@ class Mydetailpage extends StatefulWidget {
 class _MydetailpageState extends State<Mydetailpage> {
   @override
   Widget build(BuildContext context) {
+     final petdata= Provider.of<Petprovider>(context).pets.firstWhere((element) => element.petid== widget.id);
     return Scaffold(
       appBar: AppBar(leading: GestureDetector(onTap: () {
         Navigator.push(context, MaterialPageRoute(builder: (context) => Mynavigationbar(),));
@@ -27,12 +35,12 @@ class _MydetailpageState extends State<Mydetailpage> {
               width: double.infinity,
               height: 300,
               decoration: BoxDecoration(borderRadius: BorderRadius.circular(35),
-                image: DecorationImage(image: AssetImage('assets/pup.png'),fit: BoxFit.cover)
+                image: DecorationImage(image:NetworkImage(petdata.photo),fit: BoxFit.cover)
               ),
             ),SizedBox(height: 20,),
             Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text('Rooby',style: TextStyle(color: Colors.brown,fontSize: 30,fontWeight: FontWeight.bold),),
+                Text(petdata.name,style: TextStyle(color: Colors.brown,fontSize: 30,fontWeight: FontWeight.bold),),
                 Icon(Icons.favorite_border,color: Colors.red,size: 35,)
               ],
             ),SizedBox(height: 20,),
@@ -44,7 +52,7 @@ class _MydetailpageState extends State<Mydetailpage> {
                   decoration: BoxDecoration(borderRadius: BorderRadius.circular(30),
                   color: const Color.fromARGB(255, 243, 218, 226),
                   ),
-                  child: Center(child: Text('Lapsa',style: TextStyle(fontSize: 15,fontWeight: FontWeight.normal,color: Colors.brown),)),
+                  child: Center(child: Text(petdata.breed,style: TextStyle(fontSize: 15,fontWeight: FontWeight.normal,color: Colors.brown),)),
                 ), 
                 SizedBox(width: 10,),
                 Container(
@@ -53,22 +61,21 @@ class _MydetailpageState extends State<Mydetailpage> {
                   decoration: BoxDecoration(borderRadius: BorderRadius.circular(30),
                   color: const Color.fromARGB(255, 207, 224, 174).withOpacity(0.5),
                   ),
-                  child: Center(child: Text('1 Year',style: TextStyle(fontSize: 15,fontWeight: FontWeight.normal,color: Colors.brown),)),
+                  child: Center(child: Text(petdata.age,style: TextStyle(fontSize: 15,fontWeight: FontWeight.normal,color: Colors.brown),)),
                 ),SizedBox(width: 10,),
                 Container(
                   height: 45,
                   width: 120,
                   decoration: BoxDecoration(borderRadius: BorderRadius.circular(30),
                   color: const Color.fromARGB(255, 198, 237, 252).withOpacity(0.5)),
-                 child: Center(child: Text('Female',style: TextStyle(fontSize: 15,fontWeight: FontWeight.normal,color: Colors.brown),)),
+                 child: Center(child: Text(petdata.sex,style: TextStyle(fontSize: 15,fontWeight: FontWeight.normal,color: Colors.brown),)),
                 ),
               ],
             ),
             SizedBox(height: 20,),
-           Text('The kindest Rooby we have ever met.She likes to play with balls.Is friends with other animals.Despite the white color.She love rain and puddles.',
-           style: TextStyle(color: Colors.black,fontSize: 15,fontWeight: FontWeight.w100),),
+           Text(petdata.behaviour,style: TextStyle(color: Colors.black,fontSize: 15,fontWeight: FontWeight.w100),),
            SizedBox(height: 10,),
-           Text('Updated December 12'),
+           Text(petdata.addeddate),
            SizedBox(height: 35,),
            Container(
             width: double.infinity,

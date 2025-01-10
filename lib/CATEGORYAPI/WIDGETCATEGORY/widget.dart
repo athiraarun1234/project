@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:petadoptionapp/categorypage/dogcategory/dogcategory.dart';
 
 class Categorywidget extends StatefulWidget {
 final String id;
@@ -21,15 +22,20 @@ class _CategorywidgetState extends State<Categorywidget> {
   Widget build(BuildContext context) {
     return  Padding(
       padding: const EdgeInsets.all(8.0),
-      child: Container(
-                                height: 105,
-                                width: 100,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(20),
-                                  color: Colors.brown.withOpacity(0.5),
-                                  image: DecorationImage(image: NetworkImage(widget.photo),fit: BoxFit.cover)
+      child: GestureDetector(
+        onTap: () {
+          Navigator.push(context,MaterialPageRoute(builder: (context)=>Mydogcataegory(categoryid: widget.id)));
+        },
+        child: Container(
+                                  height: 105,
+                                  width: 100,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(20),
+                                    color: Colors.brown.withOpacity(0.5),
+                                    image: DecorationImage(image: NetworkImage(widget.photo),fit: BoxFit.cover)
+                                  ),
                                 ),
-                              ),
+      ),
     );
   }
 }

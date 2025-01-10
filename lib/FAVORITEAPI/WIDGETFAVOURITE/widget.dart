@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:petadoptionapp/detailpage/detailpage.dart';
 
 class Myfavoritewidgets extends StatefulWidget {
    final String favId;
@@ -53,7 +54,6 @@ class _MyfavoritewidgetsState extends State<Myfavoritewidgets> {
               Column(
                 children: [
                   Container(
-                  
                     height: 180,
                     width: 250,
                     decoration: BoxDecoration(

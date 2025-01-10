@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:petadoptionapp/detailpage/detailpage.dart';
 
 class Petwidgets extends StatefulWidget {
   final  String  petid;
@@ -36,7 +37,7 @@ class Petwidgets extends StatefulWidget {
       required this.status,
       required this.notes,
       required this.addeddate,
-      required this.photo
+      required this.photo,
     });
 
   @override
@@ -46,33 +47,38 @@ class Petwidgets extends StatefulWidget {
 class _PetwidgetsState extends State<Petwidgets> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body:
+    return 
        Column(mainAxisAlignment: MainAxisAlignment.end,
                          children: [
-                           Container(
-                            height: 130,
-                            width: 200,
-                            decoration: BoxDecoration(color: Colors.brown.withOpacity(0.10),
-                            borderRadius: BorderRadius.circular(20),
-                            image: DecorationImage(image:NetworkImage(widget.photo),fit: BoxFit.cover)
-                            ),
-                           child:Column(
-                                           children: [Row(
-                                             mainAxisAlignment: MainAxisAlignment.end,
-                                             children: [
-                                                    IconButton(
-                                                 style: IconButton.styleFrom(
-                                                    backgroundColor: Colors.white),
-                                                 onPressed: () {},
-                                                 icon: Icon(
-                                                   Icons.favorite_border_outlined,
-                                                   color: Colors.red
-                                                 )
-                                                    )
+                           GestureDetector(
+                            onTap:() {
+                             Navigator.push(context,MaterialPageRoute(builder: (context) => Mydetailpage(id: widget.petid),));
+                            },
+                             child: Container(
+                              height: 130,
+                              width: 200,
+                              decoration: BoxDecoration(color: Colors.brown.withOpacity(0.10),
+                              borderRadius: BorderRadius.circular(20),
+                              image: DecorationImage(image:NetworkImage(widget.photo),fit: BoxFit.cover)
+                              ),
+                             child:Column(
+                                             children: [Row(
+                                               mainAxisAlignment: MainAxisAlignment.end,
+                                               children: [
+                                                      IconButton(
+                                                   style: IconButton.styleFrom(
+                                                      backgroundColor: Colors.white),
+                                                   onPressed: () {},
+                                                   icon: Icon(
+                                                     Icons.favorite_border_outlined,
+                                                     color: Colors.red
+                                                   )
+                                                      )
+                                               ],
+                                             ),                
                                              ],
-                                           ),                
-                                           ],
-                                         )
+                                           )
+                             ),
                            ),
                            Container(
                             height: 45,
@@ -95,7 +101,7 @@ class _PetwidgetsState extends State<Petwidgets> {
                             ),
                            )
                          ],
-                       )
-    );
+                       );
+    
   }
 }
