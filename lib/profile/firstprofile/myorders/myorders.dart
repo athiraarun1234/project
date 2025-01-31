@@ -1,6 +1,11 @@
+
 import 'package:flutter/material.dart';
+import 'package:petadoptionapp/adoptionlist/ADOPTIONLISTAPI/MODELADOPTION/APIADOPTION/api.dart';
+import 'package:petadoptionapp/adoptionlist/ADOPTIONLISTAPI/MODELADOPTION/WIDGETADOPTION/widget.dart';
+import 'package:provider/provider.dart';
 
 class Myorders extends StatefulWidget {
+  static const routname='adoptionlist';
   const Myorders({super.key});
 
   @override
@@ -8,58 +13,65 @@ class Myorders extends StatefulWidget {
 }
 
 class _MyordersState extends State<Myorders> {
-  List<String>image=['assets/pomer.png','assets/goldfish.png','assets/dogs.png',];
-   List<String>name=['catty','goldfish','dogy',];
-   List<String>breed=['cat','fish', 'dog',];
-   List<String>date=['12/04/2024','21/05/2024','13/06/2024'];
-  
+  @override
+  void initState(){
+   Provider.of<AdoptionProvider>(context,listen: false).getAllAdoptionData(context: context);
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
+     final adoption=Provider.of<AdoptionProvider>(context);
+    final size=MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color.fromARGB(255, 222, 197, 188),
-        title: Text('My orders',style: TextStyle(color: Colors.brown),),
-      ),
-      body:ListView.builder(
-        itemCount: 3,
+        title: Text('My Orders',style: TextStyle(color: Colors.brown),),),
+      body:  adoption.loadingSpinner
+                      ? Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            const Text( 'Loading'),
+                            CircularProgressIndicator(
+                              color: Colors.green
+                            ),
+                            const SizedBox(
+                              width: 10,
+                            ),
+                         
+                          ],
+                        )
+                      : adoption.adopt.isEmpty
+                          ? Text('No Pets...')
+                           : SizedBox(
+                           
+                     child:ListView.builder(
+        itemCount:adoption.adopt.length,
         scrollDirection: Axis.vertical,
         itemBuilder: (context, index) {
-        return Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Container(
-            height: 150,
-
-            width: double.infinity,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(25),
-              color: Colors.white
-            ),
-            child: Row(crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Image.asset(image[index],scale:8,),
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Text('Name:${name[index]}'),
-                    Text('Breed:${breed[index]}'),
-                    Container(
-                      height: 60,
-                      width: 105,
-                      decoration: BoxDecoration(color: Colors.amberAccent),
-                      child: Column(
-                        children: [
-                          Text('Delivered Date:'),
-                          Text(date[index]),
-                        ],
-                      ))
-                  ],
-                )
-              ],
-            ),
-          ),
-        );
-      },)
+        return Adoptionwidget(
+    orderId :adoption.adopt[index].orderId,
+    petId :adoption.adopt[index].petId,
+    userId :adoption.adopt[index].userId,
+    orderStatus :adoption.adopt[index].orderStatus,
+    date :adoption.adopt[index].date,
+    name :adoption.adopt[index].name,
+    species :adoption.adopt[index].species,
+    breed :adoption.adopt[index].breed,
+    age :adoption.adopt[index].age,
+    sex :adoption.adopt[index].sex,
+    color :adoption.adopt[index].color,
+    weight :adoption.adopt[index].weight,
+    dob :adoption.adopt[index].dob,
+    microchipid :adoption.adopt[index].microchipid,
+    diet :adoption.adopt[index].diet,
+    behaviour :adoption.adopt[index].behaviour,
+    petStatus :adoption.adopt[index].petStatus,
+    notes :adoption.adopt[index].notes,
+    addeddate :adoption.adopt[index].addeddate,
+    photo :adoption.adopt[index].photo, 
+                        );
+                      },),
+                           ),
     );
   }
 }

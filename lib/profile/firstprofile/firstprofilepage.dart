@@ -77,26 +77,7 @@ class _MyprofilepageState extends State<Myprofilepage> {
               Navigator.push(context, MaterialPageRoute(builder: (context) => Security(),),);
             }),
             SizedBox(height: 35,),
-           ElevatedButton(onPressed: () {
-             showDialog(context: context, builder:(context) {
-               return AlertDialog(
-                content: Text('Are you want to exit the app?'),
-                actions: [
-                  ElevatedButton(onPressed: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => Myloginpage(),));
-                   }, 
-                  style: ElevatedButton.styleFrom(backgroundColor: const Color.fromARGB(255, 233, 217, 211).withOpacity(0.5)),
-                  child: Text('Yes')),
-                  ElevatedButton(onPressed: () {
-                    Navigator.pop(context);
-                   }, 
-                  style: ElevatedButton.styleFrom(backgroundColor: const Color.fromARGB(255, 231, 207, 199).withOpacity(0.5)),
-                  child: Text('No'))
-                ],
-               );
-             },);
-           }, style: ElevatedButton.styleFrom(backgroundColor: Colors.amber),
-      child     : Text('Logout',style: TextStyle(color: Colors.brown),))
+           
           ],
       ),),
     );

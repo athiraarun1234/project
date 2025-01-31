@@ -62,20 +62,21 @@ class _PetwidgetsState extends State<Petwidgets> {
                               image: DecorationImage(image:NetworkImage(widget.photo),fit: BoxFit.cover)
                               ),
                              child:Column(
-                                             children: [Row(
-                                               mainAxisAlignment: MainAxisAlignment.end,
-                                               children: [
-                                                      IconButton(
-                                                   style: IconButton.styleFrom(
-                                                      backgroundColor: Colors.white),
-                                                   onPressed: () {},
-                                                   icon: Icon(
-                                                     Icons.favorite_border_outlined,
-                                                     color: Colors.red
-                                                   )
-                                                      )
-                                               ],
-                                             ),                
+                                             children: [
+                                            //   Row(
+                                            //    mainAxisAlignment: MainAxisAlignment.end,
+                                            //    children: [
+                                            //           IconButton(
+                                            //        style: IconButton.styleFrom(
+                                            //           backgroundColor: Colors.white),
+                                            //        onPressed: () {},
+                                            //        icon: Icon(
+                                            //          Icons.favorite_border_outlined,
+                                            //          color: Colors.red
+                                            //        )
+                                            //           )
+                                            //    ],
+                                            //  ),                
                                              ],
                                            )
                              ),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:petadoptionapp/FAVORITEAPI/APIFAVORITE/api.dart';
 import 'package:petadoptionapp/FAVORITEAPI/WIDGETFAVOURITE/widget.dart';
+import 'package:petadoptionapp/profile/firstprofile/myself/myselfAPIINTEGRATION/MODEL/MYSELFAPI/api.dart';
 import 'package:provider/provider.dart';
 
 class Mywishlist extends StatefulWidget {
@@ -14,7 +15,8 @@ class Mywishlist extends StatefulWidget {
 class _MywishlistState extends State<Mywishlist> {
   @override
   void initState(){
-    Provider.of<PetfavoriteProvider>(context,listen:false).getAllFavoriteData(context:context);
+    final user=Provider.of<ProfilePetsProvider>(context,listen: false);
+    Provider.of<PetfavoriteProvider>(context,listen:false).getAllFavoriteData(context:context,userid:user.currentUserId);
     super.initState();
   }
 @override

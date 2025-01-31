@@ -27,7 +27,7 @@ class _CategorywidgetState extends State<Categorywidget> {
           Navigator.push(context,MaterialPageRoute(builder: (context)=>Mydogcataegory(categoryid: widget.id)));
         },
         child: Container(
-                                  height: 105,
+                                  height: 100,
                                   width: 100,
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(20),

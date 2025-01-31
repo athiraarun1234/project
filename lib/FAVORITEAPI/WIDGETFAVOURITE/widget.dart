@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:petadoptionapp/FAVORITEAPI/APIFAVORITE/api.dart';
 import 'package:petadoptionapp/detailpage/detailpage.dart';
+import 'package:provider/provider.dart';
 
 class Myfavoritewidgets extends StatefulWidget {
    final String favId;
@@ -50,6 +52,8 @@ class Myfavoritewidgets extends StatefulWidget {
 class _MyfavoritewidgetsState extends State<Myfavoritewidgets> {
   @override
   Widget build(BuildContext context) {
+     final favorite=Provider.of<PetfavoriteProvider>(context);
+   
     return 
               Column(
                 children: [
@@ -57,6 +61,7 @@ class _MyfavoritewidgetsState extends State<Myfavoritewidgets> {
                     height: 180,
                     width: 250,
                     decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20),
                       color: Colors.amber,
                        image: DecorationImage(image: NetworkImage(widget.photo,),fit: BoxFit.cover)
                     ),
@@ -64,7 +69,13 @@ class _MyfavoritewidgetsState extends State<Myfavoritewidgets> {
                       children: [Row(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
-                          Icon(Icons.close)
+                          CircleAvatar(
+                            radius: 20,
+                            backgroundColor: Colors.white,
+                            child:IconButton(onPressed: ()
+                             {
+                          favorite.deleteFav(widget.favId, context);
+                            }, icon:Icon(Icons.close)))
                         ],
                       ),                
                       ],
@@ -74,18 +85,14 @@ class _MyfavoritewidgetsState extends State<Myfavoritewidgets> {
                             height: 65,
                             width: 250,
                             decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20),
                               color: Colors.white
                             ),
                             child: Column(crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text('Name:${widget.name}',style: TextStyle(fontSize: 11),),
+                                Text('Name:${widget.name}',style: TextStyle(fontSize: 15,color: Colors.brown),),
                                  Text('Breed:${widget.breed}',style: TextStyle(fontSize: 11),),
-                                Row(
-                                  children: [
-                                    Icon(Icons.date_range),
-                                    Text(widget.addeddate,style: TextStyle(fontSize: 11),),
-                                  ],
-                                )
+                               
                               ],
                             ),
                           )

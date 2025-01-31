@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:petadoptionapp/adoptionlist/ADOPTIONLISTAPI/MODELADOPTION/APIADOPTION/api.dart';
 import 'package:petadoptionapp/adoptionlist/ADOPTIONLISTAPI/MODELADOPTION/WIDGETADOPTION/widget.dart';
+import 'package:petadoptionapp/profile/firstprofile/myself/myselfAPIINTEGRATION/MODEL/MYSELFAPI/api.dart';
 import 'package:provider/provider.dart';
 
 class Myadoption extends StatefulWidget {
@@ -14,7 +15,8 @@ class Myadoption extends StatefulWidget {
 class _MyadoptionState extends State<Myadoption> {
   @override
   void initState(){
-   Provider.of<AdoptionProvider>(context,listen: false).getAllAdoptionData(context: context);
+    final user=Provider.of<ProfilePetsProvider>(context,listen: false);
+   Provider.of<AdoptionProvider>(context,listen: false).getAllAdoptionData(context: context,userid:user.currentUserId );
     super.initState();
   }
   @override

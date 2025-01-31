@@ -2,7 +2,6 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:petadoptionapp/homepage/bottomnavigation/bottomnavigation.dart';
 import 'package:petadoptionapp/loginpage/loginpage.dart';
 import 'package:http/http.dart'as http;
 
@@ -31,7 +30,7 @@ class _MyregisterpageState extends State<Myregisterpage> {
     );
 
     if (picked != null && picked != DateTime.now()) {
-      String formattedDate = "${picked.year}-${picked.month}-${picked.day}";
+      String formattedDate = "${picked.day}-${picked.month}-${picked.year}";
       dobcontroller.text = formattedDate;
      }
     }
@@ -41,8 +40,15 @@ class _MyregisterpageState extends State<Myregisterpage> {
     const url =
         'http://campus.sicsglobal.co.in/Project/PetAdoption_New/api/adopter_registration.php';
 
-    Map<String, String> body = {'firstname':firstname,'lastname':lastname,'dob':dob,'email':email,
-    'password': password,'address':address,'gender':gender};
+    Map<String, String> body = {
+      'firstname':firstname,
+    'lastname':lastname,
+    'dob':dob,
+    'email':email,
+    'phone':phone,
+    'password': password,
+    'address':address,
+    'gender':gender};
 
     try {
       final response = await http.post(
@@ -60,7 +66,7 @@ class _MyregisterpageState extends State<Myregisterpage> {
             SnackBar(
               backgroundColor: Colors.amber,
               content: const Text(
-                'Login Successful!',
+                ' Successful!',
                 style:
                     TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
               ),
@@ -75,7 +81,7 @@ class _MyregisterpageState extends State<Myregisterpage> {
           print(body);
           print("Response body${response.body}");
 
-          print('Login successful');
+          print('Register successful');
         } else if (jsonData['status'] == false) {
           
           // ignore: use_build_context_synchronously
@@ -101,6 +107,7 @@ class _MyregisterpageState extends State<Myregisterpage> {
   }
   @override
   Widget build(BuildContext context) {
+    final size=MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 239, 198, 185),
        body:SingleChildScrollView(
@@ -116,7 +123,7 @@ class _MyregisterpageState extends State<Myregisterpage> {
                   children: [
                     Text('Create Your Account',style: TextStyle(color: const Color.fromARGB(255, 180, 71, 24),
                     fontSize: 27,fontWeight: FontWeight.bold),),
-                    SizedBox(height: 25,),
+                    SizedBox(height:size.height*0.025),
                     Sampletextform('Firstname',Icons.person,firstnamecontroller,(value){
                       if(firstnamecontroller.text.isEmpty){
                            return 'Please enter your firstname';
@@ -183,7 +190,7 @@ class _MyregisterpageState extends State<Myregisterpage> {
                         return null;
                       }
                     },(){}),
-                    SizedBox(height: 40,),
+                    SizedBox(height:size.height*0.040 ),
                     GestureDetector(
                       onTap: () {
                        if(formkey.currentState!.validate()){
@@ -191,7 +198,7 @@ class _MyregisterpageState extends State<Myregisterpage> {
                         lastnamecontroller.text.toString(),
                         dobcontroller.text.toString(),
                         phonecontroller.text.toString(),
-                        emailcontroller.text.toString(),
+                        emailcontroller.text.toString(), 
                         passwordcontroller.text.toString(),
                         addresscontroller.text.toString(),
                         gendercontroller.text.toString(),
@@ -200,13 +207,13 @@ class _MyregisterpageState extends State<Myregisterpage> {
                        }
                       },
                       child: Container(
-                        height: 60,
-                        width: 250,
+                        height:size.height*0.07,
+                        width: size.width*0.45,
                         decoration: BoxDecoration(
                         color: Colors.brown.withOpacity(0.8),
                         borderRadius: BorderRadius.circular(30),  
                         ),
-                        child: Center(child: Text('Register',style: TextStyle(color: Colors.white,fontSize: 18,fontWeight: FontWeight.bold),)),
+                        child: Center(child: Text('REGISTER',style: TextStyle(color: Colors.white,fontSize: 18,fontWeight: FontWeight.bold),)),
                       ),
                     ),
                   ],
@@ -227,7 +234,7 @@ class _MyregisterpageState extends State<Myregisterpage> {
         decoration: InputDecoration(
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(20),
-            borderSide: BorderSide(color: Colors.white),
+            borderSide: BorderSide.none,
           ),
           hintText: name,hintStyle:TextStyle(fontSize: 14),
           prefixIcon:GestureDetector(

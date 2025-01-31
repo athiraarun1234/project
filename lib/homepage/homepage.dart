@@ -1,11 +1,11 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:petadoptionapp/APIINTEGRATION/API/api.dart';
 import 'package:petadoptionapp/APIINTEGRATION/WIDGET/widget.dart';
-import 'package:petadoptionapp/APIINTEGRATION/design/design.dart';
 import 'package:petadoptionapp/CATEGORYAPI/APICATEGORY/api.dart';
 import 'package:petadoptionapp/CATEGORYAPI/WIDGETCATEGORY/widget.dart';
-import 'package:petadoptionapp/categorypage/dogcategory/dogcategory.dart';
-import 'package:petadoptionapp/detailpage/detailpage.dart';
+
 import 'package:provider/provider.dart';
 
 class Myhomepage extends StatefulWidget {
@@ -17,6 +17,7 @@ class Myhomepage extends StatefulWidget {
 }
 
 class _MyhomepageState extends State<Myhomepage> {
+  TextEditingController searchcontroller=TextEditingController();
   @override
   void initState(){
     Provider.of<Petprovider>(context,listen: false).getAllPetsData(context: context);
@@ -38,20 +39,27 @@ class _MyhomepageState extends State<Myhomepage> {
             children: [
                
                     TextFormField(
+                      controller: searchcontroller,
                       decoration: InputDecoration(
                         border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(20),
-                        borderSide: BorderSide(color: Colors.white)
+                        borderSide: BorderSide(color: Colors.white),
                         ),
                         hintText: 'Search',hintStyle: TextStyle(fontSize: 14),
                         prefixIcon: Icon(Icons.search_outlined),
                         fillColor: Colors.white.withOpacity(0.5),
                         filled: true,
                       ),
+                      onChanged: (value) {
+                        if(value!=''){
+                          String searchquery=value.toLowerCase();
+                          adopted.getAllSearchData(context: context,keyword: searchquery);
+                        }
+                      },
                     ),
-                    SizedBox(height: 20,),
+                    SizedBox(height:size.height* 0.020,),
                     Container(
-                      height: 170,
+                      height: size.height*0.2,
                       width: double.infinity,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(25),
@@ -74,7 +82,7 @@ class _MyhomepageState extends State<Myhomepage> {
                              Text('We are building friends circle who love pet',style: TextStyle(color: Colors.brown,fontSize: 10,
                             fontWeight: FontWeight.bold
                             ),),
-                            SizedBox(height: 10,),
+                            SizedBox(height:size.height*0.018,),
                             ElevatedButton(style: ElevatedButton.styleFrom(backgroundColor: Colors.brown),
                               onPressed: (){}, child:Text('Call us',style: TextStyle(color: Colors.white),))
                               ],
@@ -99,10 +107,8 @@ class _MyhomepageState extends State<Myhomepage> {
                             CircularProgressIndicator(
                               color: Colors.green
                             ),
-                            const SizedBox(
-                              width: 10,
+                            const SizedBox(width: 10,
                             ),
-                         
                           ],
                         )
                       : category1.category.isEmpty
@@ -110,7 +116,7 @@ class _MyhomepageState extends State<Myhomepage> {
                            : SizedBox(
                            
                    child:  SizedBox(
-                      height: 120,
+                      height:size.height *0.15,
                       child: ListView.builder(scrollDirection: Axis.horizontal,
                       itemCount: category1.category.length,
                         itemBuilder: (context, index) {
@@ -139,12 +145,51 @@ class _MyhomepageState extends State<Myhomepage> {
                         )
                       : adopted.pets.isEmpty
                           ? Text('No Pets...')
-                           : SizedBox(
+                           :adopted.searchproducts.isEmpty&&
+                          searchcontroller.text.isNotEmpty?Center(
+                            child: Text('No Pets Avilable',style: TextStyle(color: Colors.black),),):
+                            searchcontroller.text.isNotEmpty&&
+                            adopted.searchproducts.isNotEmpty?
                            
-                 child:Container(
-                  height: 450,
-                   child: GridView.builder(gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2,
-                                 crossAxisSpacing: 15,mainAxisSpacing: 15,childAspectRatio: 0.7
+                           SizedBox(
+                           
+                                     child:SizedBox(
+                                      height: size.height*0.8,
+                                       child: GridView.builder(gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2,
+                                 crossAxisSpacing: 15,mainAxisSpacing: 15,childAspectRatio: 0.9
+                                 ), scrollDirection: Axis.vertical,
+                                 itemCount:adopted.searchproducts.length,
+                                 itemBuilder: (context, intex) {
+                    return Petwidgets(
+                                       petid :adopted.searchproducts[intex].petid,
+                                        name :adopted.searchproducts[intex].name,
+                                       species :adopted.searchproducts[intex].species,
+                                        breed :adopted.searchproducts[intex].breed,
+                                       age :adopted.searchproducts[intex].age,
+                                        sex :adopted.searchproducts[intex].sex,
+                                         color :adopted.searchproducts[intex].color,
+                                         weight :adopted.searchproducts[intex].weight,
+                                         dob :adopted.searchproducts[intex].dob,
+                                          microchipid :adopted.searchproducts[intex].microchipid,
+                                         aid :adopted.searchproducts[intex].aid,
+                                         diet :adopted.searchproducts[intex].diet,
+                                          behaviour :adopted.searchproducts[intex].behaviour,
+                                           status :adopted.searchproducts[intex].status,
+                                           notes :adopted.searchproducts[intex].notes,
+                                          addeddate :adopted.searchproducts[intex].addeddate,
+                                          photo :adopted.searchproducts[intex].photo);
+                                    
+                                  },
+                                 
+                                       )
+                                     )      
+                              ):
+                               SizedBox(
+                           
+                                     child:SizedBox(
+                                      height: size.height*0.8,
+                                       child: GridView.builder(gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2,
+                                 crossAxisSpacing: 15,mainAxisSpacing: 15,childAspectRatio: 0.9
                                  ), scrollDirection: Axis.vertical,
                                  itemCount:adopted.pets.length,
                                  itemBuilder: (context, intex) {
@@ -169,9 +214,9 @@ class _MyhomepageState extends State<Myhomepage> {
                                     
                                   },
                                  
-                   )
-                 )      
-          ),
+                                       )
+                                     )      
+                              )
                 
        ], ),
     )));

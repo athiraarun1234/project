@@ -11,6 +11,7 @@ class Mypassword extends StatefulWidget {
 class _MypasswordState extends State<Mypassword> {
   @override
   Widget build(BuildContext context) {
+  final size=MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color.fromARGB(255, 244, 229, 223),
@@ -20,7 +21,7 @@ class _MypasswordState extends State<Mypassword> {
         child: Column(
           children: [
             Text('Create a new password',style: TextStyle(color: Colors.brown,fontSize: 20,fontWeight: FontWeight.bold),),
-               SizedBox(height: 35,),
+               SizedBox(height:size.height*0.035),
             TextFormField(
               decoration: InputDecoration(
                 border: OutlineInputBorder(
@@ -33,7 +34,7 @@ class _MypasswordState extends State<Mypassword> {
                 filled: true,
               ),
             ),
-            SizedBox(height: 35,),
+            SizedBox(height:size.height*0.035),
             TextFormField(
               decoration: InputDecoration(
                 border: OutlineInputBorder(
@@ -44,7 +45,7 @@ class _MypasswordState extends State<Mypassword> {
                 fillColor: Colors.white.withOpacity(.5),
                 filled: true,
               ),
-            ),   SizedBox(height: 35,),
+            ),   SizedBox(height:size.height*0.035,),
             ElevatedButton(onPressed: () {
               Navigator.push(context, MaterialPageRoute(builder: (context) => Myloginpage(),));
             }, child: Text('Ok',style: TextStyle(color: Colors.brown),))

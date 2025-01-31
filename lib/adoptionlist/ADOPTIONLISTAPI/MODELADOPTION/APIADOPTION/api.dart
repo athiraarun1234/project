@@ -33,17 +33,17 @@ class AdoptionProvider with ChangeNotifier {
     return [..._adopt];
   }
 
-  Future getAllAdoptionData({required BuildContext context}) async {
+  Future getAllAdoptionData({required BuildContext context,String? userid}) async {
     try {
       _isLoading = true;
       // var headers = {'Cookie': 'ci_session=c7lis868nec6nl8r1lb5el72q8n26upv'};
       var response = await https.get(
         Uri.parse(
-            "http://campus.sicsglobal.co.in/Project/PetAdoption_New/api/view_adoption_status.php?user_id=1"),
+            "http://campus.sicsglobal.co.in/Project/PetAdoption_New/api/view_adoption_status.php?user_id=$userid"),
       );
 
       print(
-          "http://campus.sicsglobal.co.in/Project/PetAdoption_New/api/view_adoption_status.php?user_id=1");
+          "http://campus.sicsglobal.co.in/Project/PetAdoption_New/api/view_adoption_status.php?user_id=$userid");
 
       print(response.body);
 
@@ -98,6 +98,33 @@ class AdoptionProvider with ChangeNotifier {
       _isSelect = false;
       notifyListeners();
     }
+  }  Future<void> addAdoptPet(
+      {String? petid, String? userid}) async {
+    var body = {
+      'petid': petid.toString(),
+      'user_id': userid.toString(),
+    
+    };
+
+    try {
+      var response = await https.post(
+          Uri.parse(
+              'http://campus.sicsglobal.co.in/Project/PetAdoption/api/adopt_now.php?user_id=$userid&petid=$petid'),
+          body: body);
+
+      if (response.statusCode == 200) {
+        // Request successful
+        print('Added to cart successfully');
+        print('Response: ${response.body}');
+      } else {
+        // Request failed with error code
+        print('Failed to add to cart. Status Code: ${response.statusCode}');
+      }
+    } catch (e) {
+      // Exception thrown during request
+      print('Failed to add to cart. Exception: $e');
+    }
   }
+
  
 }

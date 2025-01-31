@@ -4,10 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:petadoptionapp/adoptionlist/myadoption.dart';
 import 'package:petadoptionapp/categorypage/allcategory.dart';
 import 'package:petadoptionapp/homepage/homepage.dart';
-import 'package:petadoptionapp/homepage/menubar/menumyself.dart';
+import 'package:petadoptionapp/loginpage/loginpage.dart';
 import 'package:petadoptionapp/profile/firstprofile/firstprofilepage.dart';
+import 'package:petadoptionapp/profile/firstprofile/myself/myselfAPIINTEGRATION/MODEL/MYSELFAPI/api.dart';
 
 import 'package:petadoptionapp/wishlist/wishlist.dart';
+import 'package:provider/provider.dart';
 class Mynavigationbar extends StatefulWidget {  
   Mynavigationbar ({Key ?key}) : super(key: key);  
   
@@ -16,13 +18,17 @@ class Mynavigationbar extends StatefulWidget {
 }  
   
 class _MynavigationbarState extends State<Mynavigationbar > {  
+  @override
+  void initState(){
+    Provider.of<ProfilePetsProvider>(context,listen: false).profileData(context: context);
+    super.initState();
+  }
   int _selectedIndex = 0;  
   static const List<Widget> _widgetOptions = <Widget>[
     Myhomepage(),
     Mycategorypage(), 
     Mywishlist(),  
     Myprofilepage(), 
-     // Text('favorites', style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold)),
   ];  
   
   void tapped(int index) {  
@@ -38,7 +44,18 @@ class _MynavigationbarState extends State<Mynavigationbar > {
        
        title:  Column(
          children: [
-           Text('Hi Athira',style: TextStyle(fontSize: 14),),
+          Consumer<ProfilePetsProvider>(builder: (context, value, child) {
+                String userAddress = "";
+                for (var i = 0; i < value.users.length; i++) {
+                  userAddress = value.users[i].firstname;
+                  print(userAddress+'vvvvvvvvv');
+                }
+                return Text(
+                  'Hi $userAddress',
+                 style:Theme.of(context).textTheme.titleMedium!.copyWith(fontSize: 16,color: Colors.blue),
+                );
+              }),
+          // Text('Hi Athira',style: TextStyle(fontSize: 14),),
             Text('Enjoy our services',style: TextStyle(fontSize: 11),),
          ],
        ),  
@@ -57,7 +74,32 @@ class _MynavigationbarState extends State<Mynavigationbar > {
         backgroundColor: const Color.fromARGB(255, 246, 230, 223),
         child: Column(
           children: [
-            UserAccountsDrawerHeader(accountName: Text('Athira A'), accountEmail: Text('athira@gmail.com'),
+            UserAccountsDrawerHeader(accountName: 
+             Consumer<ProfilePetsProvider>(builder: (context, value, child) {
+                String userAddress = "";
+                for (var i = 0; i < value.users.length; i++) {
+                  userAddress = value.users[i].firstname;
+                  print(userAddress+'vvvvvvvvv');
+                }
+                return Text(
+                  ' $userAddress',
+                 style:Theme.of(context).textTheme.titleMedium!.copyWith(fontSize: 16,color: Colors.blue),
+                );
+              }),
+           // Text('Athira A'), 
+            accountEmail:
+            Consumer<ProfilePetsProvider>(builder: (context, value, child) {
+                String userAddress = "";
+                for (var i = 0; i < value.users.length; i++) {
+                  userAddress = value.users[i].email;
+                  print(userAddress+'vvvvvvvvv');
+                }
+                return Text(
+                  ' $userAddress',
+                 style:Theme.of(context).textTheme.titleMedium!.copyWith(fontSize: 16,color: Colors.blue),
+                );
+              }), 
+            //Text('athira@gmail.com'),
             currentAccountPicture: CircleAvatar(radius: 50,
             backgroundImage: AssetImage('assets/lady.png'),
             ),
@@ -77,7 +119,26 @@ class _MynavigationbarState extends State<Mynavigationbar > {
                  ListTile(leading: Icon(Icons.favorite),
                 title: Text('Wishlist'),
                 ),
-                
+                ElevatedButton(onPressed: () {
+             showDialog(context: context, builder:(context) {
+               return AlertDialog(
+                content: Text('Are you want to exit the app?'),
+                actions: [
+                  ElevatedButton(onPressed: () {
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => Myloginpage(),));
+                   }, 
+                  style: ElevatedButton.styleFrom(backgroundColor: const Color.fromARGB(255, 233, 217, 211).withOpacity(0.5)),
+                  child: Text('Yes')),
+                  ElevatedButton(onPressed: () {
+                    Navigator.pop(context);
+                   }, 
+                  style: ElevatedButton.styleFrom(backgroundColor: const Color.fromARGB(255, 231, 207, 199).withOpacity(0.5)),
+                  child: Text('No'))
+                ],
+               );
+             },);
+           }, style: ElevatedButton.styleFrom(backgroundColor: Colors.amber),
+      child     : Text('Logout',style: TextStyle(color: Colors.brown),)),
               ],
             ),
           ],

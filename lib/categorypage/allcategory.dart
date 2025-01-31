@@ -33,7 +33,7 @@ class _MycategorypageState extends State<Mycategorypage> {
         child: Column(crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text('Categories',style: TextStyle(color: Colors.brown,fontSize: 25,fontWeight: FontWeight.bold),),
-            SizedBox(height: 10,),
+            SizedBox(height:size.height* 0.010,),
           Expanded(
             child: category2.loadingSpinner
                         ? Column(
@@ -55,7 +55,7 @@ class _MycategorypageState extends State<Mycategorypage> {
                   child:SizedBox(
                     height:size.height*0.9,
                      child: GridView.builder(gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2,
-                                   crossAxisSpacing: 15,mainAxisSpacing: 15,childAspectRatio: 0.7
+                                   crossAxisSpacing: 10,mainAxisSpacing: 10,childAspectRatio: 0.9
                                    ), scrollDirection: Axis.vertical,
                                    itemCount:category2.category.length,
                                    itemBuilder: (context, index) {

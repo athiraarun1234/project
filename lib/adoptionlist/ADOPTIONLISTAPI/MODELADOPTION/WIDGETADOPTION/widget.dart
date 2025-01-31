@@ -72,7 +72,7 @@ class _AdoptionwidgetState extends State<Adoptionwidget> {
              ElevatedButton(style:ElevatedButton.styleFrom(backgroundColor: const Color.fromARGB(255, 194, 165, 154)),
               onPressed: () {
                
-             }, child:Text('Pending'))
+             }, child:Text(widget.orderStatus))
                 
     
             ],
